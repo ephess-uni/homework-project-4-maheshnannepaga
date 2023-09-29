@@ -35,13 +35,10 @@ def add_date_range(values, start_date):
     in the returned list."""
     if not isinstance(start, str):
         raise TypeError
-    elif not isinstance(n, int):
-        raise TypeError
-    else:
-        added_list = []
-        for inc in range(0, n):
-            added_list.append(datetime.strptime(start, "%Y-%m-%d") + timedelta(days=inc))
-        return added_list
+    added_list = []
+    for inc in range(len(values)):
+        added_list.append((datetime.strptime(start, "%Y-%m-%d") + timedelta(days=inc), values[inc]))
+    return added_list
 
 
 def fees_report(infile, outfile):
