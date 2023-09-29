@@ -15,7 +15,7 @@ def reformat_dates(old_dates):
 
 
 def date_range(start, n):
-    """For input date string `start`, with format 'yyyy-mm-dd', returns
+    """For input date string `start`, with formaat 'yyyy-mm-dd', returns
     a list of of `n` datetime objects starting at `start` where each
     element in the list is one day after the previous."""
     if not isinstance(start, str):
