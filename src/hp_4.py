@@ -1,5 +1,5 @@
-# hp_4.py
-#
+# hp_4.py#
+
 from datetime import datetime, timedelta
 from csv import DictReader, DictWriter
 from collections import defaultdict
@@ -14,18 +14,19 @@ def reformat_dates(old_dates):
     return modified_date_list
 
 
-def date_range(start_date, n):
-    """For input date string `start`, with formaat 'yyyy-mm-dd', returns
+def date_range(start, n):
+    """For input date string `start`, with format 'yyyy-mm-dd', returns
     a list of of `n` datetime objects starting at `start` where each
     element in the list is one day after the previous."""
-    if not isinstance(start_date, str):
+
+    if not isinstance(start, str):
         raise TypeError
     elif not isinstance(n, int):
         raise TypeError
     else:
         added_list = []
         for inc in range(0, n):
-            added_list.append(datetime.strptime(start_date, "%Y-%m-%d") + timedelta(days=inc))
+            added_list.append(datetime.strptime(start, "%Y-%m-%d") + timedelta(days=inc))
         return added_list
 
 
@@ -33,17 +34,19 @@ def add_date_range(values, start_date):
     """Adds a daily date range to the list `values` beginning with
     `start_date`.  The date, value pairs are returned as tuples
     in the returned list."""
-    if not isinstance(start, str):
-        raise TypeError
     added_list = []
-    for inc in range(len(values)):
-        added_list.append((datetime.strptime(start, "%Y-%m-%d") + timedelta(days=inc), values[inc]))
+    for i, elem in enumerate(values):
+        dat_list = []
+        dat_list.append(datetime.strptime(start_date, "%Y-%m-%d") + timedelta(days=i))
+        dat_list.append(elem)
+        added_list.append(tuple(dat_list))
     return added_list
 
 
 def fees_report(infile, outfile):
     """Calculates late fees per patron id and writes a summary report to
     outfile."""
+
     with open(infile) as file:
         added_list = []
         read_csv_obj = DictReader(file)
