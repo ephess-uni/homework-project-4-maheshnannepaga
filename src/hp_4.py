@@ -14,10 +14,25 @@ def reformat_dates(old_dates):
     return modified_date_list
 
 
-def date_range(start, n):
+def date_range(start_date, n):
     """For input date string `start`, with formaat 'yyyy-mm-dd', returns
     a list of of `n` datetime objects starting at `start` where each
     element in the list is one day after the previous."""
+    if not isinstance(start_date, str):
+        raise TypeError
+    elif not isinstance(n, int):
+        raise TypeError
+    else:
+        added_list = []
+        for inc in range(0, n):
+            added_list.append(datetime.strptime(start_date, "%Y-%m-%d") + timedelta(days=inc))
+        return added_list
+
+
+def add_date_range(values, start_date):
+    """Adds a daily date range to the list `values` beginning with
+    `start_date`.  The date, value pairs are returned as tuples
+    in the returned list."""
     if not isinstance(start, str):
         raise TypeError
     elif not isinstance(n, int):
@@ -26,18 +41,6 @@ def date_range(start, n):
         added_list = []
         for inc in range(0, n):
             added_list.append(datetime.strptime(start, "%Y-%m-%d") + timedelta(days=inc))
-        return added_list
-
-    def add_date_range(values, start_date):
-        if not isinstance(start_date, str):
-            raise TypeError("start_date must be a string")
-
-        added_list = []
-        date_objects = date_range(start_date, len(values))
-
-        for date, value in zip(date_objects, values):
-            added_list.append((date, value))
-
         return added_list
 
 
